@@ -30,13 +30,17 @@ public class Main{
 
         });   // O(N)
         
-
+        /*
         for(int i=0; i<n; i++){
             sb.append(array[i][0]).append(" ").append(array[i][1]);
             System.out.println(sb.toString());
             sb.setLength(0);
         }
-        
+        */
+		for(int i = 0 ; i< n ; i++) {
+			sb.append(array[i][0] + " " + array[i][1]).append('\n');
+		}
+		System.out.println(sb);
     }
 }
 /*
