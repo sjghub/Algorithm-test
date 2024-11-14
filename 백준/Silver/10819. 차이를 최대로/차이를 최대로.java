@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -22,10 +21,10 @@ public class Main{
         record = new int[n];
         visited = new boolean[n];
 
-        boo = new int[factorial(n)][n];
+        boo = new int[ff(n)][n];
         permutation(n,0);
         int max = 0;
-        for(int i=0; i<factorial(n); i++){
+        for(int i=0; i<ff(n); i++){
             max = Math.max(max,difSum(boo[i]));
 
         }
@@ -68,6 +67,16 @@ public class Main{
         if(n == 1) return 1;
 
         return n*factorial(n-1);
+    }
+    public static int ff(int n){
+        int[] arr1 = new int[n];
+        arr1[0] = 1;
+        for(int i=0; i<n-1; i++){
+            arr1[i+1] = arr1[i]*(i+2);
+        }
+        
+        
+        return arr1[n-1];
     }
 }
 
