@@ -48,14 +48,17 @@ public class Main {
         System.out.println(count);
     }
     public static void dfs(int i,ArrayList<Integer>[] arr){
+        
 
+
+        visited[i] = true;
         for(int j : arr[i]){
             if(!visited[j]){
                 visited[j] = true;
                 dfs(j,arr);
             }
         }
-        return ;
+
 
     }
 }
