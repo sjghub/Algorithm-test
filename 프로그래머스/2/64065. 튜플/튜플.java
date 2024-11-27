@@ -11,38 +11,16 @@ import java.io.*;
 
 class Solution {
     public int[] solution(String s) {
-        ArrayList<Integer> list = new ArrayList<>();
-        String[] arr = s.split("\\},\\{");
-
-     
-        Set<String> set = new LinkedHashSet<>();
-        if(arr.length == 1){
-            Integer.parseInt(arr[0].substring(2,arr[0].length()-2));
-            int[] a = new int[1];
-            a[0] = Integer.parseInt(arr[0].substring(2,arr[0].length()-2));
-            return a;
-        }
-        
-        arr[0] = arr[0].substring(2,arr[0].length());
-        arr[arr.length-1] = arr[arr.length-1].substring(0,arr[arr.length-1].length()-2);
-        Arrays.sort(arr,(s1, s2) -> Integer.compare(s1.length(), s2.length()));
-        
-        
-        
-        for(int i=0; i<arr.length; i++){
-            String[] strings =arr[i].split(",");
-            for(int j=0; j<strings.length; j++){
-                set.add(strings[j]);
+         Set<String> set = new HashSet<>();
+        String[] arr = s.replaceAll("[{]", " ").replaceAll("[}]", " ").trim().split(" , ");
+        Arrays.sort(arr, (a, b)->{return a.length() - b.length();});
+        int[] answer = new int[arr.length];
+        int idx = 0;
+        for(String s1 : arr) {
+            for(String s2 : s1.split(",")) {
+                if(set.add(s2)) answer[idx++] = Integer.parseInt(s2);
             }
         }
-        int[] answer = new int[set.size()];
-        Iterator<String> iterator =set.iterator();
-        int idx = 0;
-        while(iterator.hasNext()){
-            answer[idx] = Integer.parseInt(iterator.next());
-            idx++;
-        }
-        
         return answer;
     }
 }
