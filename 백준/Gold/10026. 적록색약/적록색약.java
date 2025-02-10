@@ -11,6 +11,7 @@ public class Main {
     static int cnt = 0;
     static int N;
     static char[][] map;
+    static Queue<int[]> queue = new LinkedList<>();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
@@ -20,17 +21,17 @@ public class Main {
         for (int i = 0; i < N; i++) {
             map[i] = br.readLine().toCharArray();;
         }
-        for (int i = 0; i < N; i++) {
+        for(int i = 0; i < N; i++) {
             for(int j = 0; j < N; j++) {
                 if(!visited[i][j]) {
-                    dfs(j,i,map[i][j]);
+                    bfs(i,j,map[i][j]);
                     cnt++;
                 }
             }
         }
         System.out.print(cnt+" ");
         cnt = 0;
-        for (int i = 0; i < N; i++) {
+        for(int i = 0; i < N; i++) {
             for(int j = 0; j < N; j++) {
                 visited[i][j] = false;
                 if(map[i][j] == 'R') {
@@ -38,10 +39,10 @@ public class Main {
                 }
             }
         }
-        for (int i = 0; i < N; i++) {
+        for(int i = 0; i < N; i++) {
             for(int j = 0; j < N; j++) {
                 if(!visited[i][j]) {
-                    dfs(j,i,map[i][j]);
+                    bfs(i,j,map[i][j]);
                     cnt++;
                 }
             }
@@ -50,17 +51,25 @@ public class Main {
 
     }
 
-    static void dfs(int x, int y,char color){
-        if(x>=N || y>=N || x<0 || y<0) return;
-        if(visited[y][x] || map[y][x] != color) return;
-        visited[y][x] = true;
-        for(int i = 0; i < 4; i++){
-            int nx = x + dx[i];
-            int ny = y + dy[i];
-            dfs(nx,ny,color);
+    static void bfs(int x,int y,char color){
 
+        queue.add(new int[]{x, y});
+        visited[x][y] = true;
+        while (!queue.isEmpty()) {
+            int[] cur = queue.poll();
+            for (int i = 0; i < 4; i++) {
+                int nx = cur[0] + dx[i];
+                int ny = cur[1] + dy[i];
+                if(nx < 0 || nx >= N || ny < 0 || ny >= N || visited[nx][ny]) continue;
+                if(color == map[nx][ny]){
+                    queue.add(new int[]{nx, ny});
+                    visited[nx][ny] = true;
+                }
+
+            }
         }
     }
+
 
 }
 
